@@ -55,7 +55,7 @@ check_for_args_completeness
 #
 echo "Deleting old files..."
 echo
-find $(get_config_arg_value directory)/* -mtime +$(get_config_arg_value 'days ago') -type f -delete
+find $(get_config_arg_value directory) -mtime +$(get_config_arg_value 'days ago') -type f -delete
 
 if [ $? -ne 0 ]; then
   echo "Error: file delete did not complete."
