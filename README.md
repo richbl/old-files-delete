@@ -67,3 +67,14 @@ When arguments are correctly passed, the script provides feedback on the success
 	Deleting old files...
 
 	Success.
+
+## Automation with Cron
+
+Perhaps the most powerful use case for **Old-Files-Delete** is the automated, regular execution of this script using a job scheduler such as [cron](https://en.wikipedia.org/wiki/Cron). **Old-Files-Delete** can be installed, a cron job created and saved, and then promptly forgotten: cron will periodically run the script, removing old files as they go out of date.
+
+The example below represents my own cron job set to run nightly at 00:15 on my Raspberry Pi devices configured as surveillance cameras running the [Distributed-Motion-Surveillance](https://github.com/richbl/distributed-motion-surveillance) project:
+
+	# run periodic file delete on motion image files
+	15 0 * * * /bin/bash /home/pi/dev/old-files-delete/run_old_files_delete.sh
+
+As configured, I no longer have to worry about motion-captured image files (jpg and avi files) getting generated over time, and eventually consuming available disk space on my IoT device.
