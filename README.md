@@ -78,3 +78,9 @@ The example below represents my own cron job set to run nightly at 00:15 on my R
 	15 0 * * * /bin/bash /home/pi/dev/old-files-delete/run_old_files_delete.sh
 
 As configured, I no longer have to worry about motion-captured image files (jpg and avi files) getting generated over time, and eventually consuming available disk space on my IoT device.
+
+## A Note on Cloning: This Project Uses Git Submodules
+
+This project uses a Git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) project, specifically the `bash-lib` folder to keep the **A-Bash-Template** project up-to-date without manual intervention.
+
+So, be sure to clone this project with the `--recursive` switch (`git clone --recursive https://github.com/richbl/a-bash-template`) so any submodule project(s) will be automatically cloned as well. If you clone into this project without this switch, you'll likely see empty submodule project folders (depending on your version of Git).
