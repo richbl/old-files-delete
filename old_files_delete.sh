@@ -17,7 +17,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # -----------------------------------------------------------------------------
 #
 # A bash script to recursively delete files older than (n) days
-# version: 0.1.0
 #
 # requirements:
 #  --jq program installed: used to parse /data/config.json
@@ -36,16 +35,16 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #
 shopt -s extglob
 EXEC_DIR="$(dirname "$0")"
-. ${EXEC_DIR}/lib/args
-
-ARGS_FILE="${EXEC_DIR}/data/config.json"
+# shellcheck source=bash-lib/args
+source "${EXEC_DIR}/bash-lib/args"
 
 declare -a REQ_PROGRAMS=('jq')
 
 # -----------------------------------------------------------------------------
 # perform script configuration, arguments parsing, and validation
 #
-check_program_dependencies "REQ_PROGRAMS[@]"
+
+check_program_dependencies "${REQ_PROGRAMS[@]}"
 display_banner
 scan_for_args "$@"
 check_for_args_completeness
