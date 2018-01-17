@@ -81,6 +81,6 @@ As configured, I no longer have to worry about motion-captured image files (jpg 
 
 ## A Note on Cloning: This Project Uses Git Submodules
 
-This project uses a Git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) project, specifically the `bash-lib` folder to keep the **A-Bash-Template** project up-to-date without manual intervention.
+This project uses a Git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) project, specifically the `bash-lib` folder to keep project libraries up-to-date without manual intervention.
 
 So, be sure to clone this project with the `--recursive` switch (`git clone --recursive https://github.com/richbl/a-bash-template`) so any submodule project(s) will be automatically cloned as well. If you clone into this project without this switch, you'll likely see empty submodule project folders (depending on your version of Git).
