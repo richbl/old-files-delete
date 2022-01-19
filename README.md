@@ -3,28 +3,27 @@
 
 `run_old_files_delete.sh` is a related script intended to be used for making unattended script calls into `old_files_delete.sh` (*e.g.*, running cron jobs).
 
-## [<img src="https://cloud.githubusercontent.com/assets/10182110/18208786/ae5d76b2-70e5-11e6-9663-cfe47d13f4d9.png" width="150" />](https://github.com/richbl/a-bash-template)Developed with a Bash Template (BaT)
+## [Developed with a Bash Template (BaT)](https://github.com/richbl/a-bash-template)[<img src="https://user-images.githubusercontent.com/10182110/145758715-b127adfc-710b-49d3-9ede-151adc83ae76.png" width="150" />](https://github.com/richbl/a-bash-template)
 
-**Old-Files-Delete** uses a bash template (BaT) called **[A-Bash-Template](https://github.com/richbl/a-bash-template)** designed to make script development and command line argument management more robust, easier to implement, and easier to maintain. Here are a few of those features:
+**Old-Files-Delete** uses a Bash shell template (BaT) called **[A-Bash-Template](https://github.com/richbl/a-bash-template)** designed to make script development and command line argument management more robust, easier to implement, and easier to maintain. Here are a few of those features:
 
-- Dependencies checker: a routine that checks all external program dependencies (*e.g.*, [sshpass](http://linux.die.net/man/1/sshpass) and [jq](https://stedolan.github.io/jq/))
+- Dependencies checker: a routine that checks all external program dependencies (*e.g.*, [jq](https://stedolan.github.io/jq/))
 - Arguments and script details--such as script description and syntax--are stored in the [JSON](http://www.json.org/) file format (*i.e.*, `config.json`)
 - JSON queries (using [jq](https://stedolan.github.io/jq/)) handled through wrapper functions
 - A script banner function automates banner generation, reading directly from `config.json`
-- Command line arguments are parsed and tested for completeness using both short and long-format argument syntax (*e.g.*, `-u|--username`)
+- Command line arguments are parsed and tested for completeness using both short and long-format argument syntax (*e.g.*, `-f|--font`)
 - Optional command line arguments are permissible and managed through the JSON configuration file
-- Template functions organized into libraries to minimize code footprint in the main script
+- Template functions organized into libraries (see the [Bash-Lib](https://github.com/richbl/bash-lib) project for details) to minimize code footprint in the main script
 
 For more details about using a bash template, [check out the BaT sources here](https://github.com/richbl/a-bash-template).
 
 ## Requirements
 
- - An operational [bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) environment (bash 4.3.2 used during development)
- -  One additional external program:
-    + [jq](https://stedolan.github.io/jq/), for parsing the `config.json` file
+- An operational [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) environment (Bash 5.1.8 used during development)
+- One additional external program:
+  - [jq](https://stedolan.github.io/jq/), for parsing the `config.json` file
 
-While this package was written and tested under Linux (Ubuntu 15.10), there should be no reason why this won't work under other Unix-like operating systems.
-
+While this package was initially written and tested under Linux (Ubuntu 21.10), there should be no reason why this won't work under other shells or Unix-like operating systems that support the `gsettings` application.
 
 ## Basic Usage
 **Old-Files-Delete** is run through a command line interface, so all of the command options are made available there.
@@ -35,7 +34,7 @@ Here's the default response when running `old_files_delete.sh` with no arguments
 
 	 |
 	 |  A bash script to recursively delete files older than (n) days
-	 |    0.1.0
+	 |    1.1.0
 	 |
 	 |  Usage:
 	 |    old_files_delete.sh -d directory -n days_ago
@@ -55,7 +54,7 @@ When arguments are correctly passed, the script provides feedback on the success
 
 	 |
 	 |  A bash script to delete files older than (n) days
-	 |    0.1.0
+	 |    1.1.0
 	 |
 	 |  Usage:
 	 |    old_files_delete.sh -d directory -n days_ago
@@ -79,7 +78,7 @@ The example below represents my own cron job set to run nightly at 00:15 on my R
 
 As configured, I no longer have to worry about motion-captured image files (jpg and avi files) getting generated over time, and eventually consuming available disk space on my IoT device.
 
-## A Note on Cloning: This Project Uses Git Submodules
+## >> A Note on Cloning: This Project Uses Git Submodules
 
 This project uses a Git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) project, specifically the `bash-lib` folder to keep project libraries up-to-date without manual intervention.
 

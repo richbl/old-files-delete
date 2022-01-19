@@ -4,16 +4,16 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # -----------------------------------------------------------------------------
 # Copyright (C) Business Learning Incorporated (businesslearninginc.com)
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License at <http://www.gnu.org/licenses/> for
-# more details.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License at
+# <http://www.gnu.org/licenses/> for more details.
+#
 # -----------------------------------------------------------------------------
 #
 # A bash script to recursively delete files older than (n) days
@@ -30,33 +30,46 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #  --side-effect(s): older files deleted
 #
 
-# -----------------------------------------------------------------------------
-# script declarations
 #
-shopt -s extglob
-EXEC_DIR="$(dirname "$0")"
-# shellcheck source=bash-lib/args
+# NOTE:
+#   The string '[user-config]' is an indication that some user configuration
+#   may be needed to customize this script
+#
+# FOR MORE INFORMATION:
+#   This script was written using the BaT template. To learn more, refer to
+#   the A-Bash-Template project (https://github.com/richbl/a-bash-template)
+#
+
+# -----------------------------------------------------------------------------
+# script library sources and declarations
+#
+EXEC_DIR="$(dirname "$(readlink -f "$0")")"
+source "${EXEC_DIR}/bash-lib/general"
 source "${EXEC_DIR}/bash-lib/args"
 
+# [user-config] set any external program dependencies here
 declare -a REQ_PROGRAMS=('jq')
 
 # -----------------------------------------------------------------------------
 # perform script configuration, arguments parsing, and validation
 #
-
 check_program_dependencies "${REQ_PROGRAMS[@]}"
 display_banner
 scan_for_args "$@"
 check_for_args_completeness
 
 # -----------------------------------------------------------------------------
+# [user-config]
+# Any code from this point on is custom code, using the sevices provided
+# through this BaT (https://github.com/richbl/a-bash-template) template
+
+# -----------------------------------------------------------------------------
 # perform old file delete
 #
 echo "Deleting old files..."
 echo
-find $(get_config_arg_value directory) -mtime +$(get_config_arg_value 'days ago') -type f -delete
 
-if [ $? -ne 0 ]; then
+if ! find "$(get_config_arg_value directory)" -mtime +"$(get_config_arg_value 'days ago')" -type f -delete; then
   echo "Error: file delete did not complete."
   quit
 else
