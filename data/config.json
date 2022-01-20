@@ -3,7 +3,7 @@
     {
       "title": "A bash script to recursively delete files older than (n) days",
       "syntax": "old_files_delete.sh -d directory -n days_ago",
-      "version": "1.10"
+      "version": "1.1.0"
     },
   "arguments":
     [
