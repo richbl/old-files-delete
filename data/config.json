@@ -3,7 +3,7 @@
     {
       "title": "A bash script to recursively delete files older than (n) days",
       "syntax": "old_files_delete.sh -d directory -n days_ago",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
   "arguments":
     [
@@ -18,8 +18,15 @@
         "short_form": "-n",
         "long_form": "--days_ago",
         "text_string": "days ago",
-        "description": "last modified n days ago",
+        "description": "last modified (n) or more days ago",
         "required": true
+      },
+      {
+        "short_form": "-f",
+        "long_form": "--file_pattern_match",
+        "text_string": "file pattern match",
+        "description": "OPTIONAL: file pattern to match ('*.jpg')",
+        "required": false
       }
     ]
 }

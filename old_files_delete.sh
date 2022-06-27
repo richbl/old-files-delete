@@ -66,12 +66,31 @@ check_for_args_completeness
 # -----------------------------------------------------------------------------
 # perform old file delete
 #
-echo "Deleting old files..."
-echo
 
-if ! find "$(get_config_arg_value directory)" -mtime +"$(get_config_arg_value 'days ago')" -type f -delete; then
+# declare script arguments (see config.json)
+arg_dir_root="$(get_config_arg_value directory)"
+arg_date_range="$(get_config_arg_value 'days ago')"
+arg_file_pattern_match="$(get_config_arg_value 'file pattern match')"
+
+if [ ! "$arg_file_pattern_match" ]; then
+  arg_file_pattern_match="*"
+fi
+
+readonly arg_dir_root
+readonly arg_date_range
+readonly arg_file_pattern_match
+
+# verify existence of arg_dir_root
+exist_directory "$arg_dir_root"
+
+# set Internal Field Separator to newline (ignore whitespace in names)
+IFS=$'\n'
+
+if ! find -L "$arg_dir_root" -mtime +"$arg_date_range" -type f -name "$arg_file_pattern_match" -delete; then
   echo "Error: file delete did not complete."
   quit
 else
   echo "Success."
 fi
+
+unset IFS
