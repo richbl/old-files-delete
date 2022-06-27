@@ -30,42 +30,64 @@ While this package was initially written and tested under Linux (Ubuntu 21.10), 
 
 Here's the default response when running `old_files_delete.sh` with no arguments:
 
-	$ ./old_files_delete.sh
+    $ ./old_files_delete.sh
 
-	 |
-	 |  A bash script to recursively delete files older than (n) days
-	 |    1.1.0
-	 |
-	 |  Usage:
-	 |    old_files_delete.sh -d directory -n days_ago
-	 |
-	 |  -d, --directory  file directory
-	 |  -n, --days_ago   last modified n days ago
-	 |
+    |
+    |  A bash script to recursively delete files older than (n) days
+    |    1.2.0
+    |
+    |  Usage:
+    |    old_files_delete.sh -d directory -n days_ago
+    |
+    |  -d, --directory           file directory
+    |  -n, --days_ago            last modified (n) or more days ago
+    |  -f, --file_pattern_match  OPTIONAL: file pattern to match ('*.jpg')
+    |
 
-	Error: directory argument (-d|--directory) missing.
-	Error: days ago argument (-n|--days_ago) missing.
+    Error: directory argument (-d|--directory) missing.
+    Error: days ago argument (-n|--days_ago) missing.
 
 In this example, the program responds by indicating that the required script arguments must be set before proper operation.
 
 When arguments are correctly passed, the script provides feedback on the success or failure of the script actions:
 
-	$ ./old_files_delete.sh -d ~/desktop -n 6
+    $ ./old_files_delete.sh -d ~/desktop -n 6
 
-	 |
-	 |  A bash script to delete files older than (n) days
-	 |    1.1.0
-	 |
-	 |  Usage:
-	 |    old_files_delete.sh -d directory -n days_ago
-	 |
-	 |  -d, --directory  file directory
-	 |  -n, --days_ago   last modified n days ago
-	 |
+    |
+    |  A bash script to recursively delete files older than (n) days
+    |    1.2.0
+    |
+    |  Usage:
+    |    old_files_delete.sh -d directory -n days_ago
+    |
+    |  -d, --directory           file directory
+    |  -n, --days_ago            last modified (n) or more days ago
+    |  -f, --file_pattern_match  OPTIONAL: file pattern to match ('*.jpg')
+    |
 
-	Deleting old files...
+    Deleting old files...
 
-	Success.
+    Success.
+
+Also, using the optional `-f` flag, **Old-Files-Delete** can be run to filter filenames, so file deletes can be specifically pattern matched ([globbing](https://en.wikipedia.org/wiki/Glob_(programming))). For example, if the use case is to delete files in `/home/user/pics` older than 10 days, but only to delete jpg images files, then the following script would be run:
+
+    $ ./old_files_delete.sh -d ~/pics -n 10 -f '*.jpg'
+
+    |
+    |  A bash script to recursively delete files older than (n) days
+    |    1.2.0
+    |
+    |  Usage:
+    |    old_files_delete.sh -d directory -n days_ago
+    |
+    |  -d, --directory           file directory
+    |  -n, --days_ago            last modified (n) or more days ago
+    |  -f, --file_pattern_match  OPTIONAL: file pattern to match ('*.jpg')
+    |
+
+    Deleting old files...
+
+    Success.
 
 ## Automation with Cron
 
