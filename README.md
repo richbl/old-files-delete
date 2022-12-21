@@ -100,7 +100,7 @@ The example below represents my own cron job set to run nightly at 00:15 on my R
 
 As configured, I no longer have to worry about motion-captured image files (jpg and avi files) getting generated over time, and eventually consuming available disk space on my IoT device.
 
-## IMPORTANT: This Project Uses Git Submodules <img src="https://user-images.githubusercontent.com/10182110/198916805-2c139481-8d92-4484-b92e-1d440df68045.jpg" width="150" />
+## IMPORTANT: This Project Uses Git Submodules  <img src="https://user-images.githubusercontent.com/10182110/208980142-08d4cf6e-20ac-4243-ac69-e056258b0315.png" width="150" />
 
 This project uses a Git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) project, specifically the `bash-lib` folder to keep this project up-to-date without manual intervention.
 
