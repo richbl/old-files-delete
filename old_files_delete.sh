@@ -89,6 +89,9 @@ exist_directory "$arg_dir_root"
 # Set Internal Field Separator to newline (ignore whitespace in names)
 IFS=$'\n'
 
+echo "Deleting old files..."
+echo
+
 if ! find -L "$arg_dir_root" -mtime +"$arg_date_range" -type f -name "$arg_file_pattern_match" -delete; then
   echo "Error: file delete did not complete."
   quit
