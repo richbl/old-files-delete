@@ -1,5 +1,8 @@
 # Old-Files-Delete
 
+![GitHub Release](https://img.shields.io/github/v/release/richbl/old-files-delete)  ![GitHub License](https://img.shields.io/github/license/richbl/old-files-delete?color=blue)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3c2f7ea290f04a0684e1cd690993f0c5)](https://app.codacy.com/gh/richbl/old-files-delete/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+
 **Old-Files-Delete** (`old_files_delete.sh`) is a [bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) script to recursively delete files older than (n) number of days.
 
 `run_old_files_delete.sh` is a related script intended to be used for making unattended script calls into `old_files_delete.sh` (*e.g.*, running cron jobs).
