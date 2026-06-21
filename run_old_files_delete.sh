@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # -----------------------------------------------------------------------------
-# Copyright (c) 2025 Richard Bloch
+# Copyright (c) 2026 Richard Bloch
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,7 +18,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #
 # A Bash Template (BaT) Project
 # A bash script front-end to call old_files_delete.sh
-# Version 1.2.1
+# Version 1.3.0
 #
 # requirements:
 #  --access to old_files_delete.sh
@@ -30,4 +30,20 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #  --None (side effect is the completion of the called script)
 #
 
-/bin/bash /home/user/old-files-delete/old_files_delete.sh -d /opt/motion/media -n 10
+set -Eeuo pipefail
+
+# -----------------------------------------------------------------------------
+# [user-config]
+# Adjust the target script path and its arguments to match your environment
+#
+# Absolute paths are used intentionally: cron jobs run with a minimal environment and no
+# working-directory context, so relative paths and directory-of-script lookups (as used in
+# old_files_delete.sh) aren't reliable here
+#
+readonly SCRIPT_PATH="/home/user/old-files-delete/old_files_delete.sh"
+readonly TARGET_DIR="/opt/motion/media"
+readonly DAYS_AGO=10
+
+# 'exec' replaces this wrapper process with old_files_delete.sh instead of
+# forking a child, and naturally propagates its exit status back to cron.
+exec /usr/bin/env bash "$SCRIPT_PATH" -d "$TARGET_DIR" -n "$DAYS_AGO"
