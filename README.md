@@ -54,7 +54,7 @@ $ ./old_files_delete.sh
 
 |
 |  A bash script to recursively delete files older than (n) days
-|    1.2.1
+|    1.3.0
 |
 |  Usage:
 |    old_files_delete.sh -d directory -n days_ago
@@ -78,7 +78,7 @@ $ ./old_files_delete.sh -d ~/desktop -n 6
 
 |
 |  A bash script to recursively delete files older than (n) days
-|    1.2.1
+|    1.3.0
 |
 |  Usage:
 |    old_files_delete.sh -d directory -n days_ago
@@ -100,7 +100,7 @@ $ ./old_files_delete.sh -d ~/pics -n 10 -f '*.jpg'
 
 |
 |  A bash script to recursively delete files older than (n) days
-|    1.2.1
+|    1.3.0
 |
 |  Usage:
 |    old_files_delete.sh -d directory -n days_ago

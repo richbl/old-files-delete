@@ -2,7 +2,7 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # -----------------------------------------------------------------------------
-# Copyright (c) 2025 Richard Bloch
+# Copyright (c) 2026 Richard Bloch
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,7 +18,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #
 # A Bash Template (BaT) Project
 # A bash script to recursively delete files older than (n) days
-# Version 1.2.1
+# Version 1.3.0
 #
 # requirements:
 #  --jq program installed: used to parse /data/config.json
@@ -42,6 +42,12 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #   the A-Bash-Template project (https://github.com/richbl/a-bash-template)
 #
 
+# Exit on error/unset variable, and propagate failures through pipelines
+# instead of masking them with the exit status of the pipeline's last command.
+# bash-lib's functions are written defensively (e.g. "${var:-}" expansions),
+# so it's safe to source them with these options already active.
+set -Eeuo pipefail
+
 # -----------------------------------------------------------------------------
 # Script library sources and declarations
 #
@@ -50,7 +56,7 @@ source "${EXEC_DIR}/bash-lib/general"
 source "${EXEC_DIR}/bash-lib/args"
 
 # [user-config] set any external program dependencies here
-declare -a REQ_PROGRAMS=('jq')
+declare -ar REQ_PROGRAMS=('jq')
 
 # -----------------------------------------------------------------------------
 # Perform script configuration, arguments parsing, and validation
@@ -75,9 +81,8 @@ arg_dir_root="$(get_config_arg_value directory)"
 arg_date_range="$(get_config_arg_value 'days ago')"
 arg_file_pattern_match="$(get_config_arg_value 'file pattern match')"
 
-if [ ! "$arg_file_pattern_match" ]; then
-  arg_file_pattern_match="*"
-fi
+# Default to matching all files when no pattern is supplied
+: "${arg_file_pattern_match:=*}"
 
 readonly arg_dir_root
 readonly arg_date_range
@@ -86,17 +91,19 @@ readonly arg_file_pattern_match
 # Verify existence of arg_dir_root
 exist_directory "$arg_dir_root"
 
-# Set Internal Field Separator to newline (ignore whitespace in names)
-IFS=$'\n'
+# Guard against a non-numeric --days_ago value, which would otherwise cause
+# 'find' to fail later with an opaque "illegal -mtime argument" error
+if [[ ! "$arg_date_range" =~ ^[0-9]+$ ]]; then
+	printf "Error: '%s' is not a valid, non-negative integer for --days_ago.\n" "$arg_date_range" >&2
+	quit 1
+fi
 
 echo "Deleting old files..."
 echo
 
-if ! find -L "$arg_dir_root" -mtime +"$arg_date_range" -type f -name "$arg_file_pattern_match" -delete; then
-  echo "Error: file delete did not complete."
-  quit
+if find -L "$arg_dir_root" -mtime +"$arg_date_range" -type f -name "$arg_file_pattern_match" -delete; then
+	echo "Success."
 else
-  echo "Success."
+	echo "Error: file delete did not complete." >&2
+	quit 1
 fi
-
-unset IFS
