@@ -2,6 +2,7 @@
 
 <!-- markdownlint-disable MD033 -->
 <a href="https://github.com/richbl/old-files-delete/releases"><img alt="Link to Releases" src="https://badgen.net/github/tag/richbl/old-files-delete?icon=github&label=release"></a>
+<a href="https://github.com/richbl/old-files-delete/pulls?q=is%3Apr+state%3Aclosed"><img alt="Link to PRs" src="https://badgen.net/github/last-commit/richbl/old-files-delete?color=blue&icon=github"></a>
 <a href="https://app.codacy.com/gh/richbl/old-files-delete/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img alt="Link to Codacy Report" src="https://app.codacy.com/project/badge/Grade/3c2f7ea290f04a0684e1cd690993f0c5"></a>
 <!-- markdownlint-enable MD033 -->
 
